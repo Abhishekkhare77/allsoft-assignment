@@ -409,8 +409,8 @@ export default function Search() {
           <div className="text-xs text-slate-500">{rows.length} item(s)</div>
         </div>
         {rows.length ? (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-sm">
+          <div className="overflow-x-auto w-92 md:w-full">
+            <table className="text-left text-sm">
               <thead className="bg-slate-50 text-xs font-semibold text-slate-700">
                 <tr>
                   <th className="px-4 py-3">Document</th>
