@@ -1,3 +1,26 @@
+# Steps to Run the Project
+
+1. **Create the `.env` file**
+
+   In the root directory of your project, create a file named `.env` and add the following line:
+
+   ```
+   VITE_API_URL=https://apis.allsoft.co/api/documentManagement
+   ```
+
+2. **Install Dependencies and Start the Development Server**
+
+   Open a terminal in your project directory and run:
+
+   ```
+   npm install
+   npm run dev
+   ```
+
+3. **Open the Application in Your Browser**
+
+   Go to [http://localhost:5173](http://localhost:5173) in your web browser to view the app.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -71,7 +71,7 @@ export default function TagInput({
       <label className="block text-sm font-semibold text-slate-800">
         {label}
       </label>
-      <div className="flex flex-wrap gap-2 rounded-lg border border-slate-200 bg-white p-2">
+      <div className="flex flex-wrap gap-2 border border-slate-200 bg-white p-2">
         {tags.map((t) => (
           <span
             key={t}
