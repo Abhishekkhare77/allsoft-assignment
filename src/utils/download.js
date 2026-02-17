@@ -1,10 +1,12 @@
-export async function downloadFromUrl(url, filename) {
-  const res = await fetch(url, { credentials: "omit" });
-  if (!res.ok) throw new Error("Download failed");
-  const blob = await res.blob();
-  const name = filename || "download";
-  downloadBlob(blob, name);
-  return blob;
+export function downloadFromUrl(url, filename) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename || "download";
+  a.rel = "noopener noreferrer";
+  a.target = "_blank";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 export function downloadBlob(blob, filename) {

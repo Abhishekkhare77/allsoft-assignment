@@ -11,4 +11,14 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      '/s3-proxy': {
+        target: 'https://allsoft-consulting.s3.ap-south-1.amazonaws.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/s3-proxy/, ''),
+      },
+    },
+  },
 })

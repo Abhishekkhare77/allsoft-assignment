@@ -60,6 +60,19 @@ function getRowUrl(row) {
   return `${String(base).replace(/\/+$/, "")}/${s.replace(/^\/+/, "")}`;
 }
 
+function getFetchUrlForZip(url) {
+  if (!url) return null;
+  const u = new URL(url);
+  if (
+    import.meta.env.DEV &&
+    u.hostname === "allsoft-consulting.s3.ap-south-1.amazonaws.com"
+  ) {
+    return `/s3-proxy${u.pathname}${u.search}`;
+  }
+
+  return url;
+}
+
 function extFromName(name) {
   const s = String(name || "");
   const i = s.lastIndexOf(".");
@@ -219,12 +232,27 @@ export default function Search() {
     });
     try {
       const files = [];
+      const usedNames = new Set();
       for (const c of candidates) {
-        const res = await fetch(c.url, { credentials: "omit" });
+        const fetchUrl = getFetchUrlForZip(c.url) || c.url;
+        const res = await fetch(fetchUrl, { credentials: "omit" });
         if (!res.ok) continue;
         const blob = await res.blob();
         const buf = await blob.arrayBuffer();
-        files.push({ name: c.name, data: new Uint8Array(buf) });
+        let name = c.name;
+        if (usedNames.has(name)) {
+          const ext = name.includes(".")
+            ? name.slice(name.lastIndexOf("."))
+            : "";
+          const base = name.includes(".")
+            ? name.slice(0, name.lastIndexOf("."))
+            : name;
+          let i = 1;
+          while (usedNames.has(`${base}_${i}${ext}`)) i++;
+          name = `${base}_${i}${ext}`;
+        }
+        usedNames.add(name);
+        files.push({ name, data: new Uint8Array(buf) });
       }
       if (!files.length) {
         setStatus({
