@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../state/auth/AuthContext.jsx";
 
 function NavItem({ to, children }) {
@@ -33,7 +33,9 @@ export default function AppLayout() {
         <div className="flex items-center justify-between  w-full max-w-7xl mx-auto">
           <div className="flex items-center justify-between px-4 py-4">
             <div className="min-w-0">
-              <div className="truncate text-sm font-semibold">ASSIGNMENT</div>
+              <Link to={"/"} className="truncate text-sm font-semibold">
+                ASSIGNMENT
+              </Link>
             </div>
           </div>
           <nav className="flex items-center justify-center gap-2">
