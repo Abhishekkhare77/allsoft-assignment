@@ -1,7 +1,13 @@
-import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./state/auth/AuthContext.jsx";
+import { router } from "./routes/router.jsx";
+import { Toaster } from "react-hot-toast";
 
-function App() {
-  return <div className="text-3xl font-bold underline">Hello World</div>;
+export default function App() {
+  return (
+    <AuthProvider>
+      <Toaster />
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
-
-export default App;
